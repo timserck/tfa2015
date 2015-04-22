@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+	<head> 
+		<meta charset="utf-8" />
+		<title>webcam</title>
+		<style>
+	html,body,header {
+margin: 0;
+  padding: 0;
+  	height: 100%;
+	width: 100%;
+	position: relative;
+	font-family: sans-serif;
+}
+
+header{
+	background: blue;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  video {
+    height: 300%;
+    top: -100%;
+    /* Ou bien height: 200%; top: -50%; */
+    /* Ou bien height: 400%; top: -150%; */
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  video {
+    width: 300%;
+    left: -100%;
+    /* Ou bien width: 200%; left: -50%; */
+    /* Ou bien width: 400%; left: -150%; */
+  }
+}
+
+@supports (object-fit: cover) {
+ video {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+}
+
+
+
+.filtre{
+	position: absolute;
+	display: block;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: blue;
+	opacity: .8;
+	z-index: 9;
+}
+
+.yeux{
+	position: absolute;
+	display: block;
+	top: 35%;
+	left: 50%;
+	transform : translate( -50%, -50%);
+	width: 20%;
+	height: 10%;
+	background: white;
+	opacity: .5;
+	z-index: 10;
+}
+
+
+.mantra{
+	z-index: 11;
+	position: absolute;
+	bottom: 0%;
+	left: 50%;
+	text-align: center;
+	transform : translate( -50%, -50%);
+	font-size: 1.25rem;
+	color: white;
+	text-transform: uppercase;
+
+}
+
+.mantra span{
+	display: block;
+	font-size: 7rem;
+}
+
+
+.grayscale {
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -o-filter: grayscale(1);
+  filter: grayscale(1);
+}
+.sepia {
+	-webkit-filter:sepia(1);
+  -moz-filter:sepia(1);
+  -ms-filter: sepia(1);
+  -o-filter: sepia(1);
+  filter: sepia(1);
+  
+}
+.blur {
+	-webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -ms-filter:  blur(3px);
+  -o-filter:  blur(3px);
+filter: blur(3px);
+}
+
+section{
+	padding-top: 2.5%;
+	padding-bottom: 2.5%;
+	height: 95%;
+background: #ccc;
+position: relative;
+
+}
+section:nth-child(odd){
+background: #ddd;
+color: white;
+	
+}
+
+.content{
+	margin: 0 auto;
+	width: 85%;
+}
+.navigation_block{
+	z-index: 99;
+	padding-top: 2.5%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	width: 85%;
+	position: fixed;
+	font-size: 1em;
+	line-height: 50px;
+	clear: both;
+}
+.logo, .logo_in{
+	float: left;
+	font-size: 1em;
+	line-height: 50px;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
+
+}
+nav{
+	float: right;
+}
+
+nav ul{
+	padding: 0;
+	margin: 0;
+}
+
+ nav li{
+	list-style: none;
+	float: left;
+	margin-right: 1.5em;
+}
+
+nav li:last-child{
+
+	margin-right: 0;
+
+}
+
+.navigation_block label{
+	position: relative;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	border-bottom: 2px solid white; 
+		cursor: pointer;
+	color: white;
+	text-transform: uppercase;
+}
+
+.navigation_block label:before{
+	
+	 content: " ";
+  position: absolute;
+-webkit-transform: translateY(50px);
+-moz-transform: translateY(50px);
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border-top: 2px solid white;
+opacity: 0;
+
+  -webkit-transition: all .6s;
+  -moz-transition: all .6s;
+transition : all .6s ;
+}
+
+.navigation_block label:hover:before{
+opacity: 1;
+-webkit-transform: translateY(0px);
+-webkit-transition: all .6s;
+
+-moz-transform: translateY(0px);
+-moz-transition: all .6s;
+
+transition : all .6s ;
+}
+
+.caption{
+	display: block;
+	  height: 40%;
+    width: 40%;
+    border-left: .5em solid white;
+    border-right: .5em solid white;
+    border-top: .5em solid white;
+    border-bottom: .5em solid white;
+    background: rgba(0,0,0,0);
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%) scale(0);
+    background: rgba(0,0,0,.2);
+    padding: 2.5%;
+   transition: all 1s;
+   color: white;
+	
+
+
+}
+
+section:hover .caption{
+    transform : translate( -50%, -50%) scale(1);
+   
+   transition: all 1s linear;
+
+}
+
+
+
+
+
+
+
+
+		</style>
+	</head>
+	
+	<body>
+	<header>
+	<div class="navigation_block">
+		<a href="#" class="logo_in">Tim<span>othee</span>serck.be </a>
+
+		<nav>
+			<ul>
+				<li>
+					<label>Travaux</label>
+				</li>
+				<li>
+					<label>A Propos</label>
+				</li>
+				<li>
+					<label>Contact</label>
+				</li>
+			</ul>	
+		</nav>
+		</div>
+		<video id="camera-stream"  autoplay></video>
+		<span class="filtre"></span>
+		<span class="yeux"></span>
+		<h1 class="mantra"> Je crée des experiences où l'humain est au <span>centre</span></h1>
+	</header>
+	<section>
+		
+			<div class="caption">
+				 <h2>Test</h2>
+				 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam perspiciatis at eius omnis quo aperiam tempore id perferendis ipsam adipisci distinctio laborum magnam assumenda dicta, aut neque, magni, optio cum.</p>
+			</div>
+		
+	</section>
+		<section>
+		<div class="content">
+			<div class="caption">
+				 <h2>Test</h2>
+				 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam perspiciatis at eius omnis quo aperiam tempore id perferendis ipsam adipisci distinctio laborum magnam assumenda dicta, aut neque, magni, optio cum.</p>
+			</div>
+		</div>
+	</section>
+		<section>
+		<div class="content">
+			<div class="caption">
+				 <h2>Test</h2>
+				 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam perspiciatis at eius omnis quo aperiam tempore id perferendis ipsam adipisci distinctio laborum magnam assumenda dicta, aut neque, magni, optio cum.</p>
+			</div>
+		</div>
+	</section>
+
+	
+ 	<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
+<script>
+ 
+/*
+Implementation of Matt West's excellent "Accessing the Device Camera with getUserMedia" article found at http://blog.teamtreehouse.com/accessing-the-device-camera-with-getusermedia
+*/
+
+window.onload = function() {
+
+var hdConstraints = {
+  video: {
+    mandatory: {
+      minWidth: 1280,
+      minHeight: 720
+    }
+  }
+};
+
+var vgaConstraints = {
+  video: {
+    mandatory: {
+      maxWidth: 640,
+      maxHeight: 360
+    }
+  }
+};
+  // Normalize the various vendor prefixed versions of getUserMedia.
+  navigator.getUserMedia = (navigator.getUserMedia ||
+                            navigator.webkitGetUserMedia ||
+                            navigator.mozGetUserMedia || 
+                            navigator.msGetUserMedia);
+
+
+  
+  // Check that the browser supports getUserMedia.
+  // If it doesn't show an alert, otherwise continue.
+  if (navigator.getUserMedia) {
+    // Request the camera.
+    navigator.getUserMedia(
+      // Constraints
+      {
+
+        video: true, audio: false, vgaConstraints, hdConstraints
+
+
+      },
+  
+      // Success Callback
+      function(localMediaStream) {
+        // Get a reference to the video element on the page.
+        var vid = document.getElementById('camera-stream');
+        
+        // Create an object URL for the video stream and use this 
+        // to set the video source.
+        vid.src = window.URL.createObjectURL(localMediaStream);
+      },
+  
+      // Error Callback
+      function(err) {
+        // Log the error to the console.
+        console.log('The following error occurred when trying to use getUserMedia: ' + err);
+      }
+    );
+  
+  } else {
+    alert('Sorry, your browser does not support getUserMedia');
+  }
+
+// var idx = 0;
+// var filters = ['grayscale', 'sepia', 'blur', 'brightness',
+//                'contrast', 'hue-rotate', 'hue-rotate2',
+//                'hue-rotate3', 'saturate', 'invert', ''];
+
+// function changeFilter(e) {
+//   var el = e.target;
+//   el.className = '';
+//   var effect = filters[idx++ % filters.length]; // loop through filters.
+//   if (effect) {
+//     el.classList.add(effect);
+//   }
+// }
+
+// document.querySelector('video').addEventListener(
+//     'click', changeFilter, false);
+
+
+}
+
+ 
+
+</script>
+		
+	</body>
+</html>
